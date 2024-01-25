@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contributors List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4caf50;
+            color: white;
+        }
+
+        .mpesa-link {
+            display: block;
+            margin-top: 20px;
+            color: #3498db;
+            text-decoration: underline;
+        }
+
+        .clear-button {
+            margin-top: 10px;
+            padding: 8px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .clear-button:hover {
+            background-color: #c0392b;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Contributors List</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Contribution Amount (Ksh)</th>
+            </tr>
+        </thead>
+        <tbody id="contributorTableBody"></tbody>
+    </table>
+
+    <a href="tel:+254795060594" class="mpesa-link">Contribute via M-Pesa: +254 795 060 594 (SimToolkit app)</a>
+
+    <button class="clear-button" onclick="clearContributions()">Clear Contributions</button>
+
+    <script>
+        // Retrieve contributions from local storage
+        let contributions = JSON.parse(localStorage.getItem('contributions')) || [];
+
+        // Display contributors in the table
+        const contributorTableBody = document.getElementById('contributorTableBody');
+
+        function displayContributors() {
+            // Clear existing rows in the table
+            contributorTableBody.innerHTML = '';
+
+            contributions.forEach(({ name, amount }) => {
+                const row = contributorTableBody.insertRow();
+                row.insertCell(0).textContent = name;
+                row.insertCell(1).textContent = `Ksh ${amount}`;
+            });
+        }
+
+        function clearContributions() {
+            // Clear contributions in local storage
+            localStorage.removeItem('contributions');
+            // Update contributions variable
+            contributions = [];
+            // Clear the displayed contributors
+            displayContributors();
+        }
+
+        // Initial display
+        displayContributors();
+    </script>
+
+</body>
+</html>
